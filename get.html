@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Stick It</title>
+<meta name="description" content="Stick It, the gymnastics landing game. Free on the App Store and Google Play.">
+<meta property="og:title" content="Stick It — the gymnastics landing game">
+<meta property="og:description" content="Stick your landings, keep your health above zero. Free on the App Store and Google Play.">
+<meta property="og:image" content="https://roeldankers05-cloud.github.io/stick-it/stick-it-icon.png">
+<meta name="theme-color" content="#0a0c14">
+<link rel="icon" href="stick-it-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=DM+Sans:wght@500;600&display=swap">
+<style>
+  :root { --bg:#0a0c14; --card:#151928; --line:#262c42; --ink:#f4f5fb; --muted:#8d92ac; --lime:#c6ff5e; --lime-ink:#213600; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    background: radial-gradient(900px 600px at 10% -10%, rgba(139,123,255,.25), transparent 60%), radial-gradient(700px 600px at 100% 110%, rgba(198,255,94,.12), transparent 60%), var(--bg);
+    color: var(--ink);
+    font: 500 17px/1.5 "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    display: grid; place-items: center; padding: 24px;
+  }
+  main { width: 100%; max-width: 380px; display: grid; gap: 22px; justify-items: center; text-align: center; }
+  img.icon { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 20px 50px -20px rgba(0,0,0,.8); }
+  h1 { font: 800 2.1rem/1.1 "Sora", system-ui, sans-serif; letter-spacing: -.02em; }
+  p { color: var(--muted); }
+  .stores { display: grid; gap: 12px; width: 100%; }
+  a.store {
+    display: block; padding: 16px 20px; border-radius: 999px; text-decoration: none;
+    font: 700 1.05rem/1 "Sora", system-ui, sans-serif; color: var(--ink);
+    background: var(--card); border: 2px solid var(--line);
+  }
+  a.store.primary { background: var(--lime); border-color: var(--lime); color: var(--lime-ink); }
+  a.store:focus-visible { outline: 3px solid #8b7bff; outline-offset: 3px; }
+  small { color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+<main>
+  <img class="icon" src="stick-it-icon.png" alt="Stick It app icon" width="112" height="112">
+  <div>
+    <h1>Stick It</h1>
+    <p>The gymnastics landing game. Free · Gratis</p>
+  </div>
+  <div class="stores">
+    <a class="store primary" id="ios" href="https://apps.apple.com/app/id6810559692">Download on the App Store</a>
+    <a class="store" id="android" href="https://play.google.com/store/apps/details?id=com.roeldankers.stickit">Get it on Google Play</a>
+  </div>
+  <small>Opening your store…</small>
+</main>
+<script>
+  (function () {
+    var IOS = 'https://apps.apple.com/app/id6810559692';
+    var PLAY = 'https://play.google.com/store/apps/details?id=com.roeldankers.stickit';
+    // ?s=instagram|tiktok tags the install source (Play referrer / App Store campaign name)
+    var src = (new URLSearchParams(location.search).get('s') || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 30);
+    if (src) {
+      PLAY += '&referrer=' + encodeURIComponent('utm_source=' + src + '&utm_medium=bio');
+      IOS += '?ct=' + src;
+    }
+    document.getElementById('ios').href = IOS;
+    document.getElementById('android').href = PLAY;
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/i.test(ua);
+    var note = document.querySelector('small');
+    if (isIOS) location.replace(IOS);
+    else if (isAndroid) location.replace(PLAY);
+    else note.textContent = 'Pick your store, or open this link on your phone.';
+  })();
+</script>
+</body>
+</html>
